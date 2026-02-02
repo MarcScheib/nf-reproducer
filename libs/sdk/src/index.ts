@@ -1,1 +1,2 @@
-export * from './lib/sdk/sdk';
+export * from './lib/tasks';
+export { SDK_VERSION } from './lib/providers';

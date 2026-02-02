@@ -2,9 +2,14 @@ import {
   ApplicationConfig,
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { appRoutes } from './app.routes';
+// import { SDK_VERSION } from '@ui/sdk';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideBrowserGlobalErrorListeners(), provideRouter(appRoutes)],
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    // {
+    //   provide: SDK_VERSION,
+    //   useValue: '0.0.2',
+    // }
+  ],
 };

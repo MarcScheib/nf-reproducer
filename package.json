@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve nf-reproducer",
-    "remote": "nx serve nf-reproducer-remote"
+    "remote": "nx serve nf-reproducer-remote",
+    "all:build": "nx run-many --target=build --all"
   },
   "private": true,
   "dependencies": {

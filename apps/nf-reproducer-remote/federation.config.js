@@ -3,10 +3,8 @@ const { withNativeFederation, shareAll } = require('@angular-architects/native-f
 module.exports = withNativeFederation({
   name: 'nf-reproducer-remote',
 
-
-
   exposes: {
-    './Component': './apps/nf-reproducer-remote/src/app/app.ts',
+    './tasks': './apps/nf-reproducer-remote/src/tasks/index.ts',
   },
 
   shared: {
@@ -29,5 +27,11 @@ module.exports = withNativeFederation({
     // issues with node libs. Comment this out to
     // get the traditional behavior:
     ignoreUnusedDeps: true
-  }
+  },
+
+  externals: [
+    // uncomment to make @ui/sdk an external dependency
+    // will not be bundled in the remote at all then
+    // '@ui/sdk'
+  ]
 });

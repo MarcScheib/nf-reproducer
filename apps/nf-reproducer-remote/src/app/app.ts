@@ -1,13 +1,9 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NxWelcome } from './nx-welcome';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  imports: [NxWelcome, RouterModule],
+  imports: [],
   selector: 'app-root',
-  templateUrl: './app.html',
-  styleUrl: './app.css',
+  template: `simply works`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class App {
-  protected title = 'nf-reproducer-remote';
-}
+export class App {}
