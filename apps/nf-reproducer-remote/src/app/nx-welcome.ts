@@ -511,7 +511,7 @@ import { CommonModule } from '@angular/common';
         <div id="welcome">
           <h1>
             <span> Hello there, </span>
-            Welcome nf-reproducer 👋
+            Welcome nf-reproducer-remote 👋
           </h1>
         </div>
         <!--  HERO  -->
@@ -880,7 +880,7 @@ nx run-many -t build test lint</pre>
               </svg>
               View project details
             </summary>
-            <pre>nx show project nf-reproducer</pre>
+            <pre>nx show project nf-reproducer-remote</pre>
           </details>
 
           <details>

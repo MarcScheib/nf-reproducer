@@ -1,9 +1,9 @@
 {
-  "name": "nf-reproducer",
+  "name": "nf-reproducer-remote",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "prefix": "app",
-  "sourceRoot": "apps/nf-reproducer/src",
+  "sourceRoot": "apps/nf-reproducer-remote/src",
   "tags": [],
   "targets": {
     "build": {
@@ -11,10 +11,10 @@
       "options": {},
       "configurations": {
         "production": {
-          "target": "nf-reproducer:esbuild:production"
+          "target": "nf-reproducer-remote:esbuild:production"
         },
         "development": {
-          "target": "nf-reproducer:esbuild:development",
+          "target": "nf-reproducer-remote:esbuild:development",
           "dev": true
         }
       },
@@ -23,7 +23,7 @@
     "serve": {
       "executor": "@angular-architects/native-federation:build",
       "options": {
-        "target": "nf-reproducer:serve-original:development",
+        "target": "nf-reproducer-remote:serve-original:development",
         "rebuildDelay": 500,
         "dev": true,
         "cacheExternalArtifacts": false,
@@ -39,15 +39,15 @@
         "{options.reportsDirectory}"
       ],
       "options": {
-        "reportsDirectory": "../../coverage/apps/nf-reproducer"
+        "reportsDirectory": "../../coverage/apps/nf-reproducer-remote"
       }
     },
     "serve-static": {
       "continuous": true,
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "nf-reproducer:build",
-        "staticFilePath": "dist/apps/nf-reproducer/browser",
+        "buildTarget": "nf-reproducer-remote:build",
+        "staticFilePath": "dist/apps/nf-reproducer-remote/browser",
         "spa": true
       }
     },
@@ -57,17 +57,17 @@
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "dist/apps/nf-reproducer",
-        "browser": "apps/nf-reproducer/src/main.ts",
-        "tsConfig": "apps/nf-reproducer/tsconfig.app.json",
+        "outputPath": "dist/apps/nf-reproducer-remote",
+        "browser": "apps/nf-reproducer-remote/src/main.ts",
+        "tsConfig": "apps/nf-reproducer-remote/tsconfig.app.json",
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/nf-reproducer/public"
+            "input": "apps/nf-reproducer-remote/public"
           }
         ],
         "styles": [
-          "apps/nf-reproducer/src/styles.css"
+          "apps/nf-reproducer-remote/src/styles.css"
         ],
         "polyfills": [
           "es-module-shims"
@@ -102,15 +102,15 @@
       "executor": "@angular/build:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "nf-reproducer:esbuild:production"
+          "buildTarget": "nf-reproducer-remote:esbuild:production"
         },
         "development": {
-          "buildTarget": "nf-reproducer:esbuild:development"
+          "buildTarget": "nf-reproducer-remote:esbuild:development"
         }
       },
       "defaultConfiguration": "development",
       "options": {
-        "port": 4200
+        "port": 4201
       }
     }
   }
