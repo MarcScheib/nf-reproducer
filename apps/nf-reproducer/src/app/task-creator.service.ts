@@ -1,4 +1,3 @@
-import { loadRemoteModule } from '@angular-architects/native-federation';
 import {
   Binding,
   ComponentRef,
@@ -10,6 +9,7 @@ import {
   signal,
   Type,
 } from '@angular/core';
+import { MODULE_LOADER } from '../providers';
 
 export interface ComponentCreatorOptions<T> {
   injector: Injector;
@@ -22,6 +22,7 @@ export type ComponentMap<T> = Record<string, () => Promise<Type<T>>>;
 
 @Injectable({ providedIn: 'root' })
 export class TaskCreatorService<T> {
+  private readonly moduleLoader = inject(MODULE_LOADER);
   private readonly environmentInjector = inject(EnvironmentInjector);
 
   private readonly _loading = signal<boolean>(false);
@@ -32,12 +33,12 @@ export class TaskCreatorService<T> {
 
   async create(
     componentName: string,
-    options: ComponentCreatorOptions<T>,
+    options: ComponentCreatorOptions<T>
   ): Promise<ComponentRef<T>> {
     try {
       const componentClass = await this.loadComponentType(
         componentName,
-        options,
+        options
       );
       return createComponent(componentClass, {
         environmentInjector: this.environmentInjector,
@@ -52,7 +53,7 @@ export class TaskCreatorService<T> {
 
   async loadComponentType(
     componentName: string,
-    options: ComponentCreatorOptions<T>,
+    options: ComponentCreatorOptions<T>
   ): Promise<Type<T>> {
     try {
       const remoteComponent = await this.loadRemoteComponent(componentName);
@@ -62,7 +63,7 @@ export class TaskCreatorService<T> {
 
       const localComponent = await this.loadLocalComponent(
         componentName,
-        options,
+        options
       );
       if (localComponent) {
         return localComponent;
@@ -76,13 +77,12 @@ export class TaskCreatorService<T> {
   }
 
   private async loadRemoteComponent(
-    componentName: string,
+    componentName: string
   ): Promise<Type<T> | null> {
     try {
-      const module = await loadRemoteModule<typeof import('@ui/sdk')>(
-        'nf-reproducer-remote',
-        './tasks',
-      );
+      const module = await this.moduleLoader.loadRemoteModule<
+        typeof import('@ui/sdk')
+      >('nf-reproducer-remote', './tasks');
 
       const tasks = module.TaskForms as Record<string, Type<T>>;
       if (tasks?.[componentName]) {
@@ -96,7 +96,7 @@ export class TaskCreatorService<T> {
 
   private async loadLocalComponent(
     componentName: string,
-    options: ComponentCreatorOptions<T>,
+    options: ComponentCreatorOptions<T>
   ): Promise<Type<T> | null> {
     const importFn = options.components[componentName];
     if (!importFn) {
@@ -108,7 +108,7 @@ export class TaskCreatorService<T> {
     } catch (error) {
       console.error(
         `Failed to local component '${String(componentName)}'.`,
-        error,
+        error
       );
     }
     return null;
@@ -118,7 +118,7 @@ export class TaskCreatorService<T> {
     error: unknown,
     context: {
       componentName?: string;
-    },
+    }
   ): void {
     const message =
       error instanceof Error

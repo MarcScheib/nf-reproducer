@@ -25,6 +25,10 @@ import { localTasks } from './tasks';
       <li><button (click)="taskType.set('remote')">Remote Task</button></li>
     </ul>
 
+    <p>Selected Task Type: {{ taskType() }}</p>
+
+    <hr>
+
     <ng-container #container />
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
